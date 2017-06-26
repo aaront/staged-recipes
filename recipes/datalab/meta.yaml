@@ -1,0 +1,61 @@
+{% set name = "datalab" %}
+{% set version = "1.0.1" %}
+{% set sha256 = "6657e24538788537b6fb56bd1cbec5641e546098b7d3c9d09890df9855468a0e" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - future ==0.16.0
+    - futures ==3.0.5
+    - google-api-python-client ==1.6.2
+    - google-auth >=1.0.1,<2dev
+    - google-cloud-monitoring >=0.24.0,<0.25dev
+    - httplib2 ==0.10.3
+    - ipykernel ==4.5.2
+    - jsonschema ==2.6.0
+    - matplotlib >=2.0.2,<3dev
+    - pandas >=0.17.1
+    - pandas-profiling >=1.0.0a2
+    - psutil ==4.3.0
+    - python-dateutil ==2.5.0
+    - pytz >=2015.4
+    - pyyaml ==3.11
+    - requests ==2.9.1
+    - scikit-learn ==0.17.1
+
+test:
+  imports:
+    - datalab
+    - google.datalab
+
+about:
+  home: https://github.com/googledatalab/pydatalab
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE
+  summary: 'Google Cloud Datalab'
+  description: Support package for Google Cloud Datalab. This provides cell magics and Python APIs
+    for accessing Google’s Cloud Platform services such as Google BigQuery.
+  doc_url: http://googledatalab.github.io/pydatalab/
+  dev_url: https://github.com/googledatalab/pydatalab
+
+extra:
+  recipe-maintainers:
+    - parthea
